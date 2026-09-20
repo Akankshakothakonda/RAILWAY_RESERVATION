@@ -1,0 +1,165 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Train Master
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-main">
+
+<div class="container">
+
+
+<div class="admin-title">
+
+    <div>
+
+        <span class="eyebrow">
+            MASTER DATA
+        </span>
+
+        <h1>
+            Train Master
+        </h1>
+
+        <p>
+            Manage the trains available
+            in the reservation system.
+        </p>
+
+    </div>
+
+
+    <a
+        class="btn btn-dark"
+        href="{{ url_for('add_train') }}"
+    >
+        + Add Train
+    </a>
+
+</div>
+
+
+<div class="table-card admin-table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Train No.
+</th>
+
+<th>
+Train Name
+</th>
+
+<th>
+Source
+</th>
+
+<th>
+Destination
+</th>
+
+<th>
+Departure
+</th>
+
+<th>
+Arrival
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+{% for t in trains %}
+
+<tr>
+
+<td>
+
+<strong>
+{{ t.train_number }}
+</strong>
+
+</td>
+
+<td>
+{{ t.train_name }}
+</td>
+
+<td>
+{{ t.source }}
+</td>
+
+<td>
+{{ t.destination }}
+</td>
+
+<td>
+{{ t.departure_time or '—' }}
+</td>
+
+<td>
+{{ t.arrival_time or '—' }}
+</td>
+
+<td>
+
+<form
+    method="POST"
+    action="{{ url_for('delete_train', train_id=t.train_id) }}"
+    onsubmit="return confirm('Delete this train?');"
+>
+
+<button
+    class="btn btn-sm btn-danger"
+    type="submit"
+>
+Delete
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td
+    colspan="7"
+    class="table-empty"
+>
+No trains found.
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

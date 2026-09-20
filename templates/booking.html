@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}
+Book Train
+{% endblock %}
+
+{% block content %}
+
+<section class="page-banner compact">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            RESERVATION
+        </span>
+
+        <h1>
+            Passenger details
+        </h1>
+
+        <p>
+            Complete the information below to continue to payment.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container two-col">
+
+        <div class="card">
+
+            <h2>
+                Journey details
+            </h2>
+
+            <div class="summary-list">
+
+                <div>
+
+                    <span>
+                        Train
+                    </span>
+
+                    <strong>
+                        {{ train.train_number }}
+                        ·
+                        {{ train.train_name }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Route
+                    </span>
+
+                    <strong>
+                        {{ train.source }}
+                        →
+                        {{ train.destination }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <form method="POST">
+
+                <div class="form-grid">
+
+                    <div class="full">
+
+                        <label for="passenger_name">Passenger name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="passenger_name"
+                            id="passenger_name"
+                            placeholder="Enter passenger name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            name="age"
+                            min="1"
+                            max="120"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Gender
+                        </label>
+
+                        <select name="gender" required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Male
+                            </option>
+
+                            <option>
+                                Female
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="full">
+
+                        <label>
+                            Journey date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="journey_date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Travel class
+                        </label>
+
+                        <select
+                            name="travel_class"
+                            required
+                        >
+
+                            <option value="">
+                                Select class
+                            </option>
+
+                            <option value="1A">
+                                1A — First AC
+                            </option>
+
+                            <option value="2A">
+                                2A — AC 2 Tier
+                            </option>
+
+                            <option value="3A">
+                                3A — AC 3 Tier
+                            </option>
+
+                            <option value="SL">
+                                SL — Sleeper
+                            </option>
+
+                            <option value="2S">
+                                2S — Second Sitting
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Berth preference
+                        </label>
+
+                        <select
+                            name="berth_preference"
+                            required
+                        >
+
+                            <option value="">
+                                Select preference
+                            </option>
+
+                            <option>
+                                LOWER
+                            </option>
+
+                            <option>
+                                MIDDLE
+                            </option>
+
+                            <option>
+                                UPPER
+                            </option>
+
+                            <option>
+                                SIDE LOWER
+                            </option>
+
+                            <option>
+                                SIDE UPPER
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="full">
+
+                        <button
+                            class="btn btn-primary btn-block"
+                            type="submit"
+                        >
+                            Continue to Payment
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

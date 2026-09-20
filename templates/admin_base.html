@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Railway Administration{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="admin-body">
+
+
+<!-- =========================
+     ADMIN NAVBAR
+     ========================= -->
+
+<nav class="admin-navbar">
+
+    <div class="admin-nav-container">
+
+        <a href="{{ url_for('admin') }}"
+           class="admin-brand">
+
+            <span class="admin-brand-icon">
+                🚆
+            </span>
+
+            <span class="admin-brand-text">
+
+                <strong>Railway</strong>
+
+                <small>
+                    Administration
+                </small>
+
+            </span>
+
+        </a>
+
+
+        {% if session.get('role') == 'admin' %}
+
+        <div class="admin-nav-links">
+
+            <a href="{{ url_for('admin') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('admin_bookings') }}">
+                Booking Requests
+            </a>
+
+            <a href="{{ url_for('admin_trains') }}">
+                Train Master
+            </a>
+
+            <a href="{{ url_for('add_train') }}">
+                Add Train
+            </a>
+
+            <a href="{{ url_for('admin_logout') }}"
+               class="admin-logout">
+                Logout
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     FLASH MESSAGES
+     ========================= -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        <div class="admin-flash-container">
+
+            {% for category, message in messages %}
+
+                <div class="admin-flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+<!-- =========================
+     PAGE CONTENT
+     ========================= -->
+
+<main class="admin-main">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer class="admin-footer">
+
+    <div>
+
+        <strong>
+            Railway Reservation System
+        </strong>
+
+        <span>
+            · Administration Control Center
+        </span>
+
+    </div>
+
+    <div>
+        © 2026 Academic Project
+    </div>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

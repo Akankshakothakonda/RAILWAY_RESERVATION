@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Trains | Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="eyebrow">TRAIN SEARCH</span>
+
+            <h1>Find your train</h1>
+
+            <p>
+                Search available trains using your journey details.
+            </p>
+        </div>
+
+
+        <!-- SEARCH BOX -->
+
+        <div class="search-card">
+
+            <form method="POST" class="search-form">
+
+                <div class="search-field">
+
+                    <label for="source">
+                        From
+                    </label>
+
+                    <input
+                        type="text"
+                        id="source"
+                        name="source"
+                        value="{{ source or '' }}"
+                        placeholder="e.g. Hyderabad"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="search-field">
+
+                    <label for="destination">
+                        To
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        name="destination"
+                        value="{{ destination or '' }}"
+                        placeholder="e.g. Chennai"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="search-field">
+
+                    <label for="journey_date">
+                        Journey date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="journey_date"
+                        name="journey_date"
+                        value="{{ journey_date or '' }}"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button search-button"
+                >
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="results-section">
+
+            <div class="results-heading">
+
+                <div>
+                    <span class="eyebrow">AVAILABLE SERVICES</span>
+
+                    <h2>Available trains</h2>
+                </div>
+
+                <span class="result-count">
+                    {{ trains|length }} result(s)
+                </span>
+
+            </div>
+
+
+            {% if trains %}
+
+                <div class="train-list">
+
+                    {% for train in trains %}
+
+                        <div class="train-card">
+
+                            <!-- TRAIN INFORMATION -->
+
+                            <div class="train-main">
+
+                                <div class="train-icon">
+                                    🚆
+                                </div>
+
+                                <div>
+
+                                    <span class="train-number">
+                                        Train {{ train.train_number }}
+                                    </span>
+
+                                    <h3>
+                                        {{ train.train_name }}
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ROUTE -->
+
+                            <div class="train-route">
+
+                                <div>
+                                    <span class="label">
+                                        FROM
+                                    </span>
+
+                                    <strong>
+                                        {{ train.source }}
+                                    </strong>
+                                </div>
+
+
+                                <div class="route-arrow">
+                                    →
+                                </div>
+
+
+                                <div>
+                                    <span class="label">
+                                        TO
+                                    </span>
+
+                                    <strong>
+                                        {{ train.destination }}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <!-- TIME -->
+
+                            <div class="train-time">
+
+                                <div>
+                                    <span class="label">
+                                        DEPARTURE
+                                    </span>
+
+                                    <strong>
+                                        {{ train.departure_time }}
+                                    </strong>
+                                </div>
+
+
+                                <div>
+                                    <span class="label">
+                                        ARRIVAL
+                                    </span>
+
+                                    <strong>
+                                        {{ train.arrival_time }}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <!-- BOOK BUTTON -->
+
+                            <div class="train-action">
+
+                                {% if session.get("role") == "user" %}
+
+                                    <a
+                                        href="{{ url_for('book', train_id=train.train_id) }}"
+                                        class="book-button"
+                                    >
+                                        Book Now
+                                    </a>
+
+                                {% else %}
+
+                                    <a
+                                        href="{{ url_for('login') }}"
+                                        class="book-button"
+                                    >
+                                        Login to Book
+                                    </a>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="no-results">
+
+                    <div class="no-results-icon">
+                        🚆
+                    </div>
+
+                    <h3>
+                        No trains found
+                    </h3>
+
+                    <p>
+                        Try another source, destination or journey date.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ticket
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+
+    <div class="container ticket-wrap">
+
+        <div class="ticket-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    RAILWAY RESERVATION
+                </span>
+
+                <h1>
+                    Journey Ticket
+                </h1>
+
+            </div>
+
+            <span class="status-badge {{ (booking.booking_status or booking.status or '')|lower }}">
+
+                {{ booking.booking_status or booking.status }}
+
+            </span>
+
+        </div>
+
+
+        <div class="ticket-card">
+
+            <div class="ticket-pnr">
+
+                <span>
+                    PNR
+                </span>
+
+                <strong>
+                    {{ booking.pnr }}
+                </strong>
+
+            </div>
+
+
+            <div class="ticket-route">
+
+                <div>
+
+                    <small>
+                        FROM
+                    </small>
+
+                    <strong>
+                        {{ booking.source }}
+                    </strong>
+
+                </div>
+
+                <div class="route-line">
+                    →
+                </div>
+
+                <div>
+
+                    <small>
+                        TO
+                    </small>
+
+                    <strong>
+                        {{ booking.destination }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="ticket-grid">
+
+                <div>
+
+                    <span>
+                        Train
+                    </span>
+
+                    <strong>
+                        {{ booking.train_number }}
+                        ·
+                        {{ booking.train_name }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Journey Date
+                    </span>
+
+                    <strong>
+                        {{ booking.journey_date }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Passenger
+                    </span>
+
+                    <strong>
+                        {{ booking.passenger_name }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Class
+                    </span>
+
+                    <strong>
+                        {{ booking.travel_class }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Coach
+                    </span>
+
+                    <strong>
+                        {{ booking.coach_number or 'Pending' }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Berth
+                    </span>
+
+                    <strong>
+                        {{ booking.berth_number or 'Pending' }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Berth Type
+                    </span>
+
+                    <strong>
+                        {{ booking.berth_type or booking.berth_preference or 'Pending' }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Booking Status
+                    </span>
+
+                    <strong>
+                        {{ booking.booking_status or booking.status }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            {% if (booking.booking_status or booking.status)|upper == 'PENDING' %}
+
+            <div class="notice warning">
+
+                Payment received.
+                Your reservation is waiting for administrator
+                approval and automatic coach/berth allocation.
+
+            </div>
+
+            {% elif (booking.booking_status or booking.status)|upper == 'CONFIRMED' %}
+
+            <div class="notice success">
+
+                Booking confirmed.
+                Your coach and berth have been allocated.
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="ticket-actions">
+
+            <a
+                class="btn btn-light"
+                href="{{ url_for('bookings') }}"
+            >
+                Back to My Bookings
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Booking Requests
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-main">
+
+<div class="container">
+
+
+<div class="admin-title">
+
+    <div>
+
+        <span class="eyebrow">
+            RESERVATION MANAGEMENT
+        </span>
+
+        <h1>
+            Booking Requests
+        </h1>
+
+        <p>
+            Review passenger reservations
+            and process approvals.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="table-card admin-table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Booking
+</th>
+
+<th>
+Passenger
+</th>
+
+<th>
+Train
+</th>
+
+<th>
+Journey
+</th>
+
+<th>
+Class / Preference
+</th>
+
+<th>
+Payment
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Allocation
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+{% for b in booking_requests %}
+
+<tr>
+
+<td>
+
+#{{ b.booking_id }}
+
+<br>
+
+<small>
+{{ b.pnr }}
+</small>
+
+</td>
+
+
+<td>
+
+{{ b.passenger_name }}
+
+<br>
+
+<small>
+{{ b.age }} / {{ b.gender }}
+</small>
+
+</td>
+
+
+<td>
+
+{{ b.train_number }}
+
+<br>
+
+<small>
+{{ b.train_name }}
+</small>
+
+</td>
+
+
+<td>
+{{ b.journey_date }}
+</td>
+
+
+<td>
+
+{{ b.travel_class }}
+
+<br>
+
+<small>
+{{ b.berth_preference }}
+</small>
+
+</td>
+
+
+<td>
+
+₹{{ b.amount or 0 }}
+
+<br>
+
+<small>
+{{ b.payment_status or '—' }}
+</small>
+
+</td>
+
+
+<td>
+
+<span class="status-badge {{ (b.booking_status or b.status)|lower }}">
+
+{{ b.booking_status or b.status }}
+
+</span>
+
+</td>
+
+
+<td>
+
+{{ b.coach_number or '—' }}
+
+/
+
+{{ b.berth_number or '—' }}
+
+<br>
+
+<small>
+{{ b.berth_type or '' }}
+</small>
+
+</td>
+
+
+<td>
+
+{% if (b.booking_status or '')|upper == 'PENDING' %}
+
+<div class="inline-actions">
+
+
+<form
+    method="POST"
+    action="{{ url_for('accept_booking', booking_id=b.booking_id) }}"
+>
+
+<button
+    class="btn btn-sm btn-success"
+    type="submit"
+>
+Accept
+</button>
+
+</form>
+
+
+<form
+    method="POST"
+    action="{{ url_for('reject_booking', booking_id=b.booking_id) }}"
+>
+
+<button
+    class="btn btn-sm btn-danger"
+    type="submit"
+>
+Reject
+</button>
+
+</form>
+
+</div>
+
+{% else %}
+
+Processed
+
+{% endif %}
+
+</td>
+
+</tr>
+
+
+{% else %}
+
+<tr>
+
+<td
+    colspan="9"
+    class="table-empty"
+>
+No booking records.
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

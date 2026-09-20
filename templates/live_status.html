@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}
+Live Train Status | Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<section class="live-status-page">
+
+    <div class="live-status-container">
+
+        <!-- PAGE HEADER -->
+        <div class="live-header">
+
+            <span class="eyebrow">
+                OPERATIONS
+            </span>
+
+            <h1>
+                Track your train
+            </h1>
+
+            <p>
+                Enter your train number to view the latest available status.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH CARD -->
+        <div class="status-search-card">
+
+            <form method="POST">
+
+                <label for="train_number">
+                    Train Number
+                </label>
+
+                <div class="status-search-row">
+
+                    <input
+                        type="text"
+                        id="train_number"
+                        name="train_number"
+                        placeholder="e.g. 12704"
+                        required
+                    >
+
+                    <button type="submit">
+                        Check Status
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        {% if train and status_data %}
+
+        <!-- STATUS RESULT -->
+        <div class="train-status-card">
+
+            <!-- CARD HEADER -->
+
+            <div class="status-card-header">
+
+                <div>
+
+                    <span class="status-label">
+                        TRAIN STATUS
+                    </span>
+
+                    <h2>
+                        {{ train.train_number }}
+                        <span>·</span>
+                        {{ train.train_name }}
+                    </h2>
+
+                </div>
+
+                <div class="running-badge">
+                    <span class="status-dot"></span>
+                    {{ status_data.live_status }}
+                </div>
+
+            </div>
+
+
+            <!-- ROUTE -->
+
+            <div class="route-display">
+
+                <div class="station">
+
+                    <span class="station-label">
+                        CURRENT LOCATION
+                    </span>
+
+                    <strong>
+                        {{ status_data.current_location }}
+                    </strong>
+
+                </div>
+
+
+                <div class="route-line">
+
+                    <div class="train-icon">
+                        🚆
+                    </div>
+
+                    <div class="line"></div>
+
+                </div>
+
+
+                <div class="station">
+
+                    <span class="station-label">
+                        NEXT STATION
+                    </span>
+
+                    <strong>
+                        {{ status_data.next_station }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS INFORMATION -->
+
+            <div class="status-info-grid">
+
+                <div class="status-info-box">
+
+                    <span>
+                        Previous Station
+                    </span>
+
+                    <strong>
+                        {{ status_data.previous_station }}
+                    </strong>
+
+                </div>
+
+
+                <div class="status-info-box">
+
+                    <span>
+                        Current Speed
+                    </span>
+
+                    <strong>
+                        {{ status_data.current_speed }} km/h
+                    </strong>
+
+                </div>
+
+
+                <div class="status-info-box">
+
+                    <span>
+                        Delay
+                    </span>
+
+                    <strong class="on-time">
+                        {{ status_data.delay }} min
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div class="status-message">
+
+                <span class="message-icon">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Status Update
+                    </strong>
+
+                    <p>
+                        {{ status_data.status_message }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% elif request.method == "POST" %}
+
+        <!-- NO TRAIN -->
+
+        <div class="no-status-card">
+
+            <div class="no-status-icon">
+                🚆
+            </div>
+
+            <h2>
+                Train not found
+            </h2>
+
+            <p>
+                We couldn't find a train with that number.
+                Please check the number and try again.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

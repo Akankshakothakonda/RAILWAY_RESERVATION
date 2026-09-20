@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Bookings
+{% endblock %}
+
+{% block content %}
+
+<section class="page-banner compact">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            PASSENGER PORTAL
+        </span>
+
+        <h1>
+            My bookings
+        </h1>
+
+        <p>
+            Track reservation status,
+            tickets and cancellations.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        {% if bookings %}
+
+        <div class="table-card">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        PNR
+                    </th>
+
+                    <th>
+                        Train
+                    </th>
+
+                    <th>
+                        Journey
+                    </th>
+
+                    <th>
+                        Class
+                    </th>
+
+                    <th>
+                        Coach / Berth
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for b in bookings %}
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            {{ b.pnr }}
+                        </strong>
+                    </td>
+
+
+                    <td>
+
+                        {{ b.train_number }}
+
+                        <br>
+
+                        <small>
+                            {{ b.train_name }}
+                        </small>
+
+                    </td>
+
+
+                    <td>
+                        {{ b.journey_date }}
+                    </td>
+
+
+                    <td>
+                        {{ b.travel_class }}
+                    </td>
+
+
+                    <td>
+
+                        {{ b.coach_number or 'Pending' }}
+
+                        /
+
+                        {{ b.berth_number or 'Pending' }}
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="status-badge {{ (b.booking_status or b.status)|lower }}">
+
+                            {{ b.booking_status or b.status }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td class="actions-cell">
+
+                        <a
+                            class="btn btn-sm btn-light"
+                            href="{{ url_for('ticket', booking_id=b.booking_id) }}"
+                        >
+                            Ticket
+                        </a>
+
+
+                        {% if (b.booking_status or b.status)|upper in ['PENDING','CONFIRMED'] %}
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('cancel_booking', booking_id=b.booking_id) }}"
+                            onsubmit="return confirm('Cancel this booking?');"
+                        >
+
+                            <button
+                                class="btn btn-sm btn-danger"
+                                type="submit"
+                            >
+                                Cancel
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <h3>
+                No bookings yet
+            </h3>
+
+            <p>
+                Search a train and start your first reservation.
+            </p>
+
+            <a
+                class="btn btn-primary"
+                href="{{ url_for('search') }}"
+            >
+                Search Trains
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

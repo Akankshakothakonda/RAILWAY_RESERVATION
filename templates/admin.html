@@ -1,0 +1,500 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Admin Dashboard | Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <!-- PAGE HEADER -->
+
+    <div class="dashboard-header">
+
+        <div>
+            <div class="dashboard-eyebrow">
+                CONTROL CENTER
+            </div>
+
+            <h1>Dashboard</h1>
+
+            <p>
+                Monitor reservations, passengers, trains and payment activity.
+            </p>
+        </div>
+
+        <div class="admin-profile">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+                <strong>{{ session.get('admin_name', 'Administrator') }}</strong>
+                <span>Administrator</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="dashboard-stats">
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon blue">
+                👥
+            </div>
+
+            <div class="stat-content">
+
+                <span>Total Passengers</span>
+
+                <strong>{{ total_users }}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon red">
+                🚆
+            </div>
+
+            <div class="stat-content">
+
+                <span>Total Trains</span>
+
+                <strong>{{ total_trains }}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon purple">
+                🎫
+            </div>
+
+            <div class="stat-content">
+
+                <span>Total Bookings</span>
+
+                <strong>{{ total_bookings }}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon orange">
+                ⏳
+            </div>
+
+            <div class="stat-content">
+
+                <span>Pending Approval</span>
+
+                <strong>{{ pending_bookings }}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon green">
+                ✓
+            </div>
+
+            <div class="stat-content">
+
+                <span>Confirmed</span>
+
+                <strong>{{ confirmed_bookings }}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat">
+
+            <div class="stat-icon money">
+                ₹
+            </div>
+
+            <div class="stat-content">
+
+                <span>Revenue</span>
+
+                <strong>₹{{ "%.2f"|format(total_revenue or 0) }}</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="dashboard-section">
+
+        <div class="section-title-row">
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    MANAGEMENT
+                </div>
+
+                <h2>Quick Actions</h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            <a href="{{ url_for('admin_bookings') }}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    🎫
+                </div>
+
+                <div>
+
+                    <strong>Booking Requests</strong>
+
+                    <span>
+                        Review and approve passenger bookings
+                    </span>
+
+                </div>
+
+                <b>→</b>
+
+            </a>
+
+
+            <a href="{{ url_for('admin_trains') }}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    🚆
+                </div>
+
+                <div>
+
+                    <strong>Train Master</strong>
+
+                    <span>
+                        View and manage all trains
+                    </span>
+
+                </div>
+
+                <b>→</b>
+
+            </a>
+
+
+            <a href="{{ url_for('add_train') }}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    ＋
+                </div>
+
+                <div>
+
+                    <strong>Add New Train</strong>
+
+                    <span>
+                        Add a train to the railway database
+                    </span>
+
+                </div>
+
+                <b>→</b>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOOKING REQUESTS -->
+
+    <div class="dashboard-section">
+
+        <div class="section-title-row">
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    RESERVATIONS
+                </div>
+
+                <h2>Recent Booking Requests</h2>
+
+                <p>
+                    Approve to automatically allocate a coach and berth,
+                    or reject the request.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for('admin_bookings') }}"
+               class="view-all-button">
+
+                View All Bookings →
+
+            </a>
+
+        </div>
+
+
+        <div class="dashboard-table-wrapper">
+
+            <table class="dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID / PNR</th>
+
+                        <th>Passenger</th>
+
+                        <th>Train</th>
+
+                        <th>Date</th>
+
+                        <th>Class</th>
+
+                        <th>Payment</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for booking in booking_requests %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                #{{ booking.booking_id }}
+                            </strong>
+
+                            <small>
+                                {{ booking.pnr }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ booking.passenger_name }}
+                            </strong>
+
+                            <small>
+                                {{ booking.user_email }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ booking.train_number }}
+                            </strong>
+
+                            <small>
+                                {{ booking.train_name }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+                            {{ booking.journey_date }}
+                        </td>
+
+
+                        <td>
+
+                            {% if booking.travel_class %}
+                                <span class="class-badge">
+                                    {{ booking.travel_class }}
+                                </span>
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                ₹{{ "%.2f"|format(booking.amount or 0) }}
+                            </strong>
+
+                            <small>
+                                {{ booking.payment_status }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if booking.booking_status == 'PENDING' %}
+
+                                <span class="status-badge pending">
+                                    PENDING
+                                </span>
+
+                            {% elif booking.booking_status == 'CONFIRMED' %}
+
+                                <span class="status-badge confirmed">
+                                    CONFIRMED
+                                </span>
+
+                            {% elif booking.booking_status == 'REJECTED' %}
+
+                                <span class="status-badge rejected">
+                                    REJECTED
+                                </span>
+
+                            {% elif booking.booking_status == 'CANCELLED' %}
+
+                                <span class="status-badge cancelled">
+                                    CANCELLED
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-badge">
+                                    {{ booking.booking_status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if booking.booking_status == 'PENDING' %}
+
+                                <div class="action-buttons">
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('accept_booking', booking_id=booking.booking_id) }}">
+
+                                        <button
+                                            type="submit"
+                                            class="approve-button">
+
+                                            ✓ Accept
+
+                                        </button>
+
+                                    </form>
+
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('reject_booking', booking_id=booking.booking_id) }}">
+
+                                        <button
+                                            type="submit"
+                                            class="reject-button">
+
+                                            × Reject
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            {% else %}
+
+                                <span class="action-complete">
+                                    Processed
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="8"
+                            class="empty-table">
+
+                            <div class="empty-icon">
+                                ✓
+                            </div>
+
+                            <strong>
+                                No booking requests
+                            </strong>
+
+                            <span>
+                                New passenger requests will appear here.
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

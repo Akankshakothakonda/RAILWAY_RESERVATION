@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+
+{% block title %}
+Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                SMART RAILWAY RESERVATION
+            </div>
+
+            <h1>
+                Plan your journey.<br>
+                <span>Reserve with confidence.</span>
+            </h1>
+
+            <p>
+                Search trains, select your preferred class,
+                submit a reservation request and receive an
+                automatically allocated coach and berth after
+                administrator approval.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('search') }}"
+                   class="btn btn-primary">
+                    Search Trains
+                </a>
+
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-light">
+                    Passenger Login
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <h3>Find Your Train</h3>
+
+            <p>
+                Search available trains by route.
+            </p>
+
+            <form action="{{ url_for('search') }}"
+                  method="GET"
+                  class="quick-search">
+
+                <input
+                    type="text"
+                    name="source"
+                    placeholder="From">
+
+                <input
+                    type="text"
+                    name="destination"
+                    placeholder="To">
+
+                <input
+                    type="date"
+                    name="journey_date">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Search Trains
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="eyebrow">
+            PLATFORM OVERVIEW
+        </div>
+
+        <h2>Everything you need for your journey</h2>
+
+        <p>
+            A centralized railway reservation platform
+            for passengers and administrators.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-number">155</div>
+            <div class="stat-label">Trains Available</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Travel Classes</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">24×7</div>
+            <div class="stat-label">Booking Access</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">AI</div>
+            <div class="stat-label">Smart Allocation</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="eyebrow">
+            PASSENGER SERVICES
+        </div>
+
+        <h2>Designed for a complete reservation journey</h2>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🔎
+            </div>
+
+            <h3>Train Search</h3>
+
+            <p>
+                Search trains using source,
+                destination and journey date.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎫
+            </div>
+
+            <h3>Online Reservation</h3>
+
+            <p>
+                Submit passenger details,
+                choose travel class and berth preference.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💺
+            </div>
+
+            <h3>Automatic Allocation</h3>
+
+            <p>
+                Coach and berth are automatically
+                allocated after administrator approval.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💳
+            </div>
+
+            <h3>Secure Payment</h3>
+
+            <p>
+                Complete the reservation payment
+                before submitting your booking request.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎟️
+            </div>
+
+            <h3>Digital Ticket</h3>
+
+            <p>
+                View your PNR, coach, berth and
+                journey details in one place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📍
+            </div>
+
+            <h3>Live Train Status</h3>
+
+            <p>
+                Check the current status and
+                journey information of a train.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="eyebrow">
+            HOW IT WORKS
+        </div>
+
+        <h2>Simple reservation workflow</h2>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <h3>Search</h3>
+
+            <p>
+                Find trains by source,
+                destination and journey date.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <h3>Book</h3>
+
+            <p>
+                Enter passenger information
+                and select class and berth preference.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <h3>Approval</h3>
+
+            <p>
+                The administrator reviews
+                and approves the reservation request.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <h3>Ticket</h3>
+
+            <p>
+                Receive your confirmed PNR,
+                coach and berth allocation.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

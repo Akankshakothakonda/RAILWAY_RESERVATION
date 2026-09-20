@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login | Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<section class="form-section">
+
+    <div class="form-card">
+
+        <div class="section-heading">
+            <div class="badge">USER LOGIN</div>
+
+            <h1>Welcome Back</h1>
+
+            <p>
+                Login to access your railway reservation account.
+            </p>
+        </div>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="primary-button full-button">
+                Login
+            </button>
+
+        </form>
+
+        <div class="form-footer">
+            <p>
+                Don't have an account?
+                <a href="{{ url_for('register') }}">
+                    Register here
+                </a>
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

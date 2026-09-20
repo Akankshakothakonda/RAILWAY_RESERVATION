@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}
+Payment | Railway Reservation System
+{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                PAYMENT
+            </span>
+
+            <h1>
+                Complete your payment
+            </h1>
+
+            <p>
+                Review your journey details and select a payment method.
+            </p>
+
+        </div>
+
+
+        <div class="payment-layout">
+
+            <!-- JOURNEY SUMMARY -->
+
+            <div class="card payment-summary">
+
+                <h2>
+                    Journey summary
+                </h2>
+
+                <div class="payment-detail">
+
+                    <span>Train</span>
+
+                    <strong>
+                        {{ train.train_number }}
+                        ·
+                        {{ train.train_name }}
+                    </strong>
+
+                </div>
+
+
+                <div class="payment-detail">
+
+                    <span>Route</span>
+
+                    <strong>
+                        {{ train.source }}
+                        → 
+                        {{ train.destination }}
+                    </strong>
+
+                </div>
+
+
+                <div class="payment-detail">
+
+                    <span>Journey date</span>
+
+                    <strong>
+                        {{ booking.journey_date }}
+                    </strong>
+
+                </div>
+
+
+                <div class="payment-detail">
+
+                    <span>Travel class</span>
+
+                    <strong>
+                        {{ booking.travel_class }}
+                    </strong>
+
+                </div>
+
+
+                <div class="payment-detail">
+
+                    <span>Berth preference</span>
+
+                    <strong>
+                        {{ booking.berth_preference }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT FORM -->
+
+            <div class="card payment-card">
+
+                <h2>
+                    Payment details
+                </h2>
+
+                <form method="POST">
+
+                    <div class="form-group">
+
+                        <label for="payment_method">
+                            Payment method
+                        </label>
+
+                        <select
+                            id="payment_method"
+                            name="payment_method"
+                            required
+                        >
+
+                            <option value="">
+                                Select payment method
+                            </option>
+
+                            <option value="UPI">
+                                UPI
+                            </option>
+
+                            <option value="CARD">
+                                Credit / Debit Card
+                            </option>
+
+                            <option value="NET BANKING">
+                                Net Banking
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="fare-box">
+
+                        <span>
+                            Fare
+                        </span>
+
+                        <strong>
+
+                            {% if booking.travel_class == "1A" %}
+                                ₹2500
+
+                            {% elif booking.travel_class == "2A" %}
+                                ₹1800
+
+                            {% elif booking.travel_class == "3A" %}
+                                ₹1200
+
+                            {% elif booking.travel_class == "SL" %}
+                                ₹600
+
+                            {% elif booking.travel_class == "2S" %}
+                                ₹300
+
+                            {% else %}
+                                ₹0
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button full-button"
+                    >
+                        Pay & Submit Booking
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

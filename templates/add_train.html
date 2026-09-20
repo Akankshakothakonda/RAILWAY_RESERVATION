@@ -1,0 +1,185 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Add Train | Admin
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-page">
+
+    <div class="admin-container">
+
+        <div class="admin-page-header">
+            <span class="eyebrow">TRAIN MANAGEMENT</span>
+
+            <h1>Add New Train</h1>
+
+            <p>
+                Add a new train to the railway reservation system.
+            </p>
+        </div>
+
+
+        <div class="admin-form-card">
+
+            <form method="POST">
+
+                <div class="admin-form-grid">
+
+                    <!-- TRAIN NUMBER -->
+                    <div class="admin-form-group">
+
+                        <label for="train_number">
+                            Train Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="train_number"
+                            name="train_number"
+                            placeholder="Example: 12704"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TRAIN NAME -->
+                    <div class="admin-form-group">
+
+                        <label for="train_name">
+                            Train Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="train_name"
+                            name="train_name"
+                            placeholder="Example: Falaknuma Express"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SOURCE -->
+                    <div class="admin-form-group">
+
+                        <label for="source">
+                            Source Station
+                        </label>
+
+                        <input
+                            type="text"
+                            id="source"
+                            name="source"
+                            placeholder="Example: Hyderabad"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESTINATION -->
+                    <div class="admin-form-group">
+
+                        <label for="destination">
+                            Destination Station
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            name="destination"
+                            placeholder="Example: New Delhi"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DEPARTURE -->
+                    <div class="admin-form-group">
+
+                        <label for="departure_time">
+                            Departure Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="departure_time"
+                            name="departure_time"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ARRIVAL -->
+                    <div class="admin-form-group">
+
+                        <label for="arrival_time">
+                            Arrival Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="arrival_time"
+                            name="arrival_time"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SEATS -->
+                    <div class="admin-form-group">
+
+                        <label for="total_seats">
+                            Total Seats
+                        </label>
+
+                        <input
+                            type="number"
+                            id="total_seats"
+                            name="total_seats"
+                            placeholder="Example: 250"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="admin-form-actions">
+
+                    <a
+                        href="{{ url_for('admin_trains') }}"
+                        class="admin-cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="admin-submit-button"
+                    >
+                        Add Train
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
