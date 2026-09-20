@@ -2,4 +2,4 @@ venv/
 __pycache__/
 *.pyc
 .env
-database.db
+railway_db_backup.sql
