@@ -1,3 +1,4 @@
+
 from flask import (  # type: ignore[reportMissingImports]
     Flask,
     render_template,
